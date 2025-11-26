@@ -4,26 +4,27 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
-[Authorize]
-public class IndexModel : PageModel
+
+namespace MyWebApp.Pages
 {
-    public string Username { get; set; }
-
-    public void OnGet()
+    [Authorize]
+    public class IndexModel : PageModel
     {
-        if (User.Identity != null && User.Identity.IsAuthenticated)
-        {
-            Username = User.Identity.Name;
-        }
-        else
-        {
-            Username = "Guest";
-        }
-    }
+        // Initialize to avoid nullable warnings
+        public string Username { get; set; } = "Guest";
 
-    public async Task<IActionResult> OnPostLogout()
-    {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToPage("/Login");
+        public void OnGet()
+        {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                Username = User.Identity.Name ?? "Guest";
+            }
+        }
+
+        public async Task<IActionResult> OnPostLogout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToPage("/Login");
+        }
     }
 }

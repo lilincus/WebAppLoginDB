@@ -10,14 +10,52 @@ using MyWebApp.Data;
 namespace MyWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251125113548_SeedMoreUsers")]
-    partial class SeedMoreUsers
+    [Migration("20251126062236_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
+
+            modelBuilder.Entity("MyWebApp.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Gaming Laptop",
+                            Name = "Laptop",
+                            Price = 1200m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Smartphone",
+                            Name = "Phone",
+                            Price = 800m
+                        });
+                });
 
             modelBuilder.Entity("MyWebApp.Models.User", b =>
                 {
@@ -41,19 +79,19 @@ namespace MyWebApp.Migrations
                         new
                         {
                             Id = 1,
-                            PasswordHash = "$2a$11$Z3w9zUrZJxzeYSGLTmvQJ.PlT4G249IKXatITBxR0xySgq00W4KC6",
+                            PasswordHash = "$2a$11$yI.5.NMOoIW6a.hNHDDeEu2LmicUqNBIJpSVpKIpIA7asLPw1cXQi",
                             Username = "admin"
                         },
                         new
                         {
                             Id = 2,
-                            PasswordHash = "$2a$11$fYpUMaMcDz82rF7MUwL7KuKuWP6ftx4W5o5YP6Mw9HbEHEhy01.FS",
+                            PasswordHash = "$2a$11$7tS/iimIIwSRQ2W8ZUNSTe82nl1G82sY4Y53DquLkcYr8bwbDssXu",
                             Username = "joya"
                         },
                         new
                         {
                             Id = 3,
-                            PasswordHash = "$2a$11$4TJTtxCaIAw7pKlRUmolK..RwqkJeqbiSCD6CevhstfrgVDqOP.Pa",
+                            PasswordHash = "$2a$11$rdKaNdJGSfMSLQDo9q8OJe2iiQzSjNkjlgQ2jeQR/YD9LseS8YVbG",
                             Username = "mary"
                         });
                 });

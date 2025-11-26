@@ -1,18 +1,19 @@
 ﻿@page
-@model IndexModel
+@model MyWebApp.Pages.IndexModel
 @{
     ViewData["Title"] = "Home";
 }
 
-<h2>Welcome, @Model.Username!</h2>
+<div class="container mt-4">
+    <h1>Home Page</h1>
 
-@if (User.Identity != null && User.Identity.IsAuthenticated)
-{
-    <form method="post">
-        <button type="submit" asp-page-handler="Logout">Logout</button>
-    </form>
-}
-else
-{
-    <a href="/Login">Login</a>
-}
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <p>Welcome to your secure web application, @Model.Username!</p>
+        <p>Use the navigation bar above to query the database.</p>
+    }
+    else
+    {
+        <p>Please <a href="/Login">login</a> to access the application.</p>
+    }
+</div>
