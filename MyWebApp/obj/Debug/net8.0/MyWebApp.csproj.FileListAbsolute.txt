@@ -6,6 +6,7 @@
 /workspaces/WebAppLoginDB/MyWebApp/bin/Debug/net8.0/MyWebApp.runtimeconfig.json
 /workspaces/WebAppLoginDB/MyWebApp/bin/Debug/net8.0/MyWebApp.dll
 /workspaces/WebAppLoginDB/MyWebApp/bin/Debug/net8.0/MyWebApp.pdb
+/workspaces/WebAppLoginDB/MyWebApp/bin/Debug/net8.0/BCrypt.Net-Next.dll
 /workspaces/WebAppLoginDB/MyWebApp/bin/Debug/net8.0/Humanizer.dll
 /workspaces/WebAppLoginDB/MyWebApp/bin/Debug/net8.0/Microsoft.Data.Sqlite.dll
 /workspaces/WebAppLoginDB/MyWebApp/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
@@ -77,4 +78,3 @@
 /workspaces/WebAppLoginDB/MyWebApp/obj/Debug/net8.0/MyWebApp.pdb
 /workspaces/WebAppLoginDB/MyWebApp/obj/Debug/net8.0/MyWebApp.genruntimeconfig.cache
 /workspaces/WebAppLoginDB/MyWebApp/obj/Debug/net8.0/ref/MyWebApp.dll
-/workspaces/WebAppLoginDB/MyWebApp/bin/Debug/net8.0/BCrypt.Net-Next.dll

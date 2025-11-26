@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using MyWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net; // ✅ Add this to use BCrypt
 
+[AllowAnonymous]
 public class LoginModel : PageModel
 {
     private readonly ApplicationDbContext _db;

@@ -1,0 +1,43 @@
+@page
+@model MyWebApp.Pages.QueryModel
+@using System.Data
+
+<h2>Run SQL Query</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">SQL Query</label>
+        <textarea class="form-control" name="sqlQuery" rows="4">@Model.SqlQuery</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Run Query</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger mt-3">@Model.ErrorMessage</div>
+}
+
+@if (Model.QueryResults != null)
+{
+    <table class="table table-bordered table-striped mt-4">
+        <thead>
+            <tr>
+                @foreach (DataColumn col in Model.QueryResults.Columns)
+                {
+                    <th>@col.ColumnName</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.QueryResults.Rows)
+            {
+                <tr>
+                    @foreach (var item in row.ItemArray)
+                    {
+                        <td>@item</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
