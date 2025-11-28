@@ -7,6 +7,43 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebApp.styles.css" asp-append-version="true" />
+
+    <style>
+        /* Dark mode navbar */
+        body.dark-mode nav {
+            background-color: #222 !important;
+        }
+
+        /* Navbar text becomes white in dark mode */
+        body.dark-mode nav a.nav-link,
+        body.dark-mode nav .navbar-brand,
+        body.dark-mode nav .navbar-text {
+            color: #ffffff !important;
+        }
+
+        /* Hover color in dark mode */
+        body.dark-mode nav a.nav-link:hover {
+            color: #9cd3ff !important;
+        }
+
+        /* Dark mode toggle button */
+        .dark-mode-toggle {
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+        }
+    </style>
+
+    <script>
+        // Apply saved theme BEFORE page renders (fixes flash)
+        (function () {
+            const saved = localStorage.getItem("theme");
+            if (saved === "dark") {
+                document.body?.classList?.add("dark-mode");
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -25,17 +62,21 @@
                         </li>
                     </ul>
 
-                    @if (User.Identity != null && User.Identity.IsAuthenticated)
-                    {
-                        <form method="post" asp-page="/Index" asp-page-handler="Logout" class="d-flex">
-                            <span class="navbar-text me-2">Welcome, @User.Identity.Name</span>
-                            <button class="btn btn-danger btn-sm" type="submit">Logout</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <a class="btn btn-primary btn-sm" href="/Login">Login</a>
-                    }
+                    <div class="d-flex align-items-center">
+                        <button class="dark-mode-toggle me-3" id="darkModeToggle">🌓 Dark Mode</button>
+
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <form method="post" asp-page="/Index" asp-page-handler="Logout" class="d-flex">
+                                <span class="navbar-text me-2">Welcome, @User.Identity.Name</span>
+                                <button class="btn btn-danger btn-sm" type="submit">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary btn-sm" href="/Login">Login</a>
+                        }
+                    </div>
                 </div>
             </div>
         </nav>
@@ -52,5 +93,29 @@
     </footer>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Toggle + Save dark mode
+        document.addEventListener("DOMContentLoaded", () => {
+            const toggle = document.getElementById("darkModeToggle");
+
+            // Apply saved theme
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark-mode");
+            }
+
+            toggle.addEventListener("click", () => {
+                document.body.classList.toggle("dark-mode");
+
+                // Save preference
+                if (document.body.classList.contains("dark-mode")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

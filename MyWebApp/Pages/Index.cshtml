@@ -4,16 +4,40 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="container mt-4">
-    <h1>Home Page</h1>
+<div class="container mt-5">
 
-    @if (User.Identity != null && User.Identity.IsAuthenticated)
-    {
-        <p>Welcome to your secure web application, @Model.Username!</p>
-        <p>Use the navigation bar above to query the database.</p>
-    }
-    else
-    {
-        <p>Please <a href="/Login">login</a> to access the application.</p>
-    }
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5 text-center">
+
+                    <h1 class="fw-bold mb-3">Welcome to MyWebApp</h1>
+
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <h4 class="text-muted mb-4">Hello, @Model.Username!</h4>
+
+                        <p class="lead">
+                            You are logged in.  
+                            Use the navigation bar to run SQL queries or explore other features.
+                        </p>
+
+                        <a href="/Query" class="btn btn-primary btn-lg mt-3">Go to Query Page</a>
+                    }
+                    else
+                    {
+                        <p class="text-muted fs-5">
+                            Please log in to access the secure application and database tools.
+                        </p>
+
+                        <a href="/Login" class="btn btn-primary btn-lg mt-3">Login</a>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>

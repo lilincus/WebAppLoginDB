@@ -2,49 +2,68 @@
 @model MyWebApp.Pages.QueryModel
 @using System.Data
 
-<div class="container mt-4">
-    <h2>Run SQL Query</h2>
+<div class="container mt-5">
 
-    <form method="post">
-        <div class="mb-3">
-            <label class="form-label">SQL Query</label>
-            <textarea class="form-control" name="sqlQuery" rows="4">@Model.SqlQuery</textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Run Query</button>
+    <div class="row justify-content-center">
+        <div class="col-md-10">
 
-        @if (Model.QueryResults != null && Model.QueryResults.Rows.Count > 0)
-        {
-            <a class="btn btn-success ms-2" asp-page-handler="ExportCsv">Export to Excel</a>
-        }
-    </form>
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
 
-    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-    {
-        <div class="alert alert-danger mt-3">@Model.ErrorMessage</div>
-    }
+                    <h3 class="fw-bold mb-3">🗂 SQL Query Runner</h3>
+                    <p class="text-muted mb-4">Enter a SQL statement below and run it against the database.</p>
 
-    @if (Model.QueryResults != null && Model.QueryResults.Rows.Count > 0)
-    {
-        <table class="table table-bordered table-striped mt-4">
-            <thead>
-                <tr>
-                    @foreach (DataColumn col in Model.QueryResults.Columns)
-                    {
-                        <th>@col.ColumnName</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (DataRow row in Model.QueryResults.Rows)
-                {
-                    <tr>
-                        @foreach (var item in row.ItemArray)
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">SQL Query</label>
+                            <textarea class="form-control rounded" name="sqlQuery" rows="5" placeholder="SELECT * FROM Users">
+@Model.SqlQuery</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg">Run Query</button>
+
+                        @if (Model.QueryResults != null && Model.QueryResults.Rows.Count > 0)
                         {
-                            <td>@item</td>
+                            <a class="btn btn-success btn-lg ms-2" asp-page-handler="ExportCsv">Export to Excel</a>
                         }
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
+                    </form>
+
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger mt-3">@Model.ErrorMessage</div>
+                    }
+
+                    @if (Model.QueryResults != null && Model.QueryResults.Rows.Count > 0)
+                    {
+                        <div class="table-responsive mt-4">
+                            <table class="table table-hover table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        @foreach (DataColumn col in Model.QueryResults.Columns)
+                                        {
+                                            <th class="fw-bold">@col.ColumnName</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (DataRow row in Model.QueryResults.Rows)
+                                    {
+                                        <tr>
+                                            @foreach (var item in row.ItemArray)
+                                            {
+                                                <td>@item</td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
